@@ -103,7 +103,7 @@ section {
   width: 100%;
 }
 
-/* Publications Styles (Retained as Placeholders) */
+/* Dynamic Publications Styles */
 .publications-header {
   display: flex;
   justify-content: space-between;

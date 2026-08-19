@@ -1,18 +1,3 @@
 {
-  "publications": [
-    {
-      "title": "[Placeholder] Your Future Publication Title Here",
-      "authors": [
-        "Priyansh Garg",
-        "Co-Author Name"
-      ],
-      "venue": "Future Journal / Conference (2027)",
-      "thumbnail": "images/profile.jpg",
-      "selected": 1,
-      "award": "",
-      "links": {
-        "pdf": "#"
-      }
-    }
-  ]
+  "publications": []
 }
