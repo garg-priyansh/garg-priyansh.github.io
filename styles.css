@@ -473,3 +473,178 @@ strong {
     transform: none !important;
   }
 }
+
+/* --- BASE DARK THEME & BACKGROUNDS --- */
+body {
+    /* Added background-image to the transition so the fog center fades in smoothly */
+    transition: background-color 0.4s ease, color 0.4s ease, background-image 0.4s ease;
+}
+
+body.dark-theme {
+    color: #e3e3e3;
+}
+
+/* Dark Mode (Low Beam) */
+body.dark-theme.dark-mode-glow {
+    background-color: #000000;
+    background-image: none;
+}
+
+/* Fog Mode (Medium) - Gray base with a hazy blue-to-yellow center glow */
+body.dark-theme.medium-mode-glow {
+    background-color: #4b5563; 
+    background-image: radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.18) 0%, rgba(250, 204, 21, 0.12) 40%, transparent 75%);
+}
+
+/* Brighten fonts in dark modes for readability */
+body.dark-theme h1, 
+body.dark-theme h2, 
+body.dark-theme p, 
+body.dark-theme li,
+body.dark-theme strong,
+body.dark-theme i,
+body.dark-theme .social-links-header a {
+    color: #f8fafc;
+}
+
+body.dark-theme a { color: #a8c7fa; }
+body.dark-theme hr { border-top: 1px solid #333639; }
+body.dark-theme blockquote.quote { color: #e2e8f0; border-left-color: #a8c7fa; }
+body.dark-theme .social-links-header a:hover { background-color: rgba(168, 199, 250, 0.15); }
+
+
+/* --- AMBIENT GLOWS (Strictly Corners) --- */
+:root {
+    --glow-top: transparent;
+    --glow-bottom: transparent;
+}
+
+/* Fog Mode: Faint white top, faint orange rear */
+body.medium-mode-glow {
+    --glow-top: rgba(255, 255, 255, 0.15);
+    --glow-bottom: rgba(249, 120, 22, 0.15); 
+}
+
+/* Dark Mode: Faint warm white top, faint red rear */
+body.dark-mode-glow {
+    --glow-top: rgba(255, 247, 220, 0.3);
+    --glow-bottom: rgba(220, 38, 38, 0.20);
+}
+
+.ambient-glow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out, background 1.5s ease;
+}
+
+body.medium-mode-glow .ambient-glow,
+body.dark-mode-glow .ambient-glow {
+    opacity: 1;
+}
+
+/* Spread is tightly restricted to 35% so it hugs the corners without flooding the screen */
+#glow-top-left { background: radial-gradient(circle at 0% 0%, var(--glow-top) 0%, transparent 15%); }
+#glow-top-right { background: radial-gradient(circle at 100% 0%, var(--glow-top) 0%, transparent 15%); }
+#glow-bottom-left { background: radial-gradient(circle at 0% 100%, var(--glow-bottom) 0%, transparent 15%); }
+#glow-bottom-right { background: radial-gradient(circle at 100% 100%, var(--glow-bottom) 0%, transparent 15%); }
+
+
+/* --- TRANSITION FLASH --- */
+.flash-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    background: radial-gradient(circle at 50% 15%, rgba(255, 255, 255, 0.85) 0%, rgba(168, 199, 250, 0.4) 30%, transparent 70%);
+}
+
+.flash-active {
+    animation: quickFlash 0.55s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
+
+@keyframes quickFlash {
+    0% { opacity: 0; transform: scale(0.8); }
+    15% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* --- ROUNDED BOX (restored) --- */
+.stalk-slider {
+    display: flex;
+    justify-content: space-around;  /* spread icons evenly */
+    align-items: center;
+    width: 76px;
+    height: 24px;
+    background-color: #e2e8f0;       /* original light background */
+    border-radius: 24px;            /* fully rounded */
+    padding: 0 4px;
+    border: 1px solid #c7c7c7;
+    cursor: pointer;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+    box-sizing: border-box;
+    outline: none;
+    user-select: none;
+}
+
+body.dark-theme .stalk-slider {
+    background-color: #1e1f20;       /* original dark background */
+    border-color: #333639;
+}
+
+/* --- ICON STYLES --- */
+.beam-icon {
+    width: 15px;                    /* fits well inside 24px height */
+    height: 15px;
+    color: #94a3b8;                 /* default inactive colour */
+    transition: color 0.3s ease, transform 0.2s ease, filter 0.3s ease;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+/* --- ACTIVE (ILLUMINATED) STATES --- */
+.beam-icon.active {
+    transform: scale(1.15);
+}
+
+.beam-icon.low-beam.active {
+    color: #10b981;                 /* green glow for dark mode */
+    filter: drop-shadow(0 0 4px #10b981);
+}
+body.dark-theme .beam-icon.low-beam.active {
+    color: #34d399;
+    filter: drop-shadow(0 0 4px #34d399);
+}
+
+.beam-icon.fog-beam.active {
+    color: #f59e0b;                 /* amber glow for fog mode */
+    filter: drop-shadow(0 0 4px #f59e0b);
+}
+body.dark-theme .beam-icon.fog-beam.active {
+    color: #fbbf24;
+    filter: drop-shadow(0 0 4px #fbbf24);
+}
+
+.beam-icon.high-beam.active {
+    color: #0b57d0;                 /* blue glow for light mode */
+    filter: drop-shadow(0 0 4px #0b57d0);
+}
+body.dark-theme .beam-icon.high-beam.active {
+    color: #a8c7fa;
+    filter: drop-shadow(0 0 4px #a8c7fa);
+}
+
+.floating-theme-container {
+    position: fixed;
+    top: 24px;      /* Distance from the top of the screen */
+    right: 24px;    /* Distance from the right of the screen */
+    z-index: 9990;  /* Keeps it above standard content, but below the flash overlay */
+    display: flex;
+    align-items: center;
+}

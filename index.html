@@ -21,6 +21,50 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body id="top">
+    <!-- Permanent Ambient Glows (Corners) -->
+    <div id="glow-top-left" class="ambient-glow"></div>
+    <div id="glow-top-right" class="ambient-glow"></div>
+    <div id="glow-bottom-left" class="ambient-glow"></div>
+    <div id="glow-bottom-right" class="ambient-glow"></div>
+
+    <!-- Transition Flash -->
+    <div id="headlight-flash" class="flash-overlay"></div>
+
+    <!-- Floating Theme Toggle -->
+    <div class="floating-theme-container">
+        <button type="button" id="theme-stalk" class="stalk-slider" data-state="light" aria-label="Theme selector">
+            
+            <!-- Dark mode (Low Beam) -->
+            <svg class="beam-icon low-beam" data-target="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
+                <line x1="2" y1="8" x2="8" y2="5" />
+                <line x1="2" y1="12" x2="8" y2="9" />
+                <line x1="2" y1="16" x2="8" y2="13" />
+                <line x1="2" y1="20" x2="8" y2="17" />
+            </svg>
+
+            <!-- Fog mode (Fog Light) -->
+            <svg class="beam-icon fog-beam" data-target="medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
+                <line x1="0" y1="10" x2="8" y2="6" />
+                <line x1="0" y1="15" x2="8" y2="11" />
+                <line x1="0" y1="20" x2="8" y2="16" />
+                <path d="M5 4 L2 9 L6 14 L2 19 L5 23" />
+            </svg>
+
+            <!-- Light mode (High Beam) -->
+            <svg class="beam-icon high-beam" data-target="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
+                <line x1="2" y1="6" x2="8" y2="6" />
+                <line x1="2" y1="10" x2="8" y2="10" />
+                <line x1="2" y1="14" x2="8" y2="14" />
+                <line x1="2" y1="18" x2="8" y2="18" />
+            </svg>
+
+            <div class="stalk-thumb"></div>
+        </button>
+    </div>
+    
     <header>
         <div class="header-content">
             <h1>Priyansh Garg</h1>
