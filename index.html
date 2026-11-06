@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Priyansh's Homepage">
     <meta name="keywords" content="Mechanical Engineering, PhD Student, Research, ReinforcementLearning, Robotics">
-    <meta name="author" content="Anonymous">
+    <meta name="author" content="Priyansh Garg">
     <meta property="og:title" content="Priyansh's Homepage">
     <meta property="og:description" content="Research in Robotics and related fields.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="#">
+    <meta property="og:url" content="https://garg-priyansh.github.io/">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:creator" content="@anonymous">
     <title>Priyansh's Homepage</title>
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;500;600&display=swap"> -->
     <!-- <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/latin-modern-roman"> -->
@@ -21,50 +20,42 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body id="top">
-    <!-- Permanent Ambient Glows (Corners) -->
-    <div id="glow-top-left" class="ambient-glow"></div>
-    <div id="glow-top-right" class="ambient-glow"></div>
-    <div id="glow-bottom-left" class="ambient-glow"></div>
-    <div id="glow-bottom-right" class="ambient-glow"></div>
-
-    <!-- Transition Flash -->
-    <div id="headlight-flash" class="flash-overlay"></div>
-
-    <!-- Floating Theme Toggle -->
-    <div class="floating-theme-container">
-        <button type="button" id="theme-stalk" class="stalk-slider" data-state="light" aria-label="Theme selector">
-            
-            <!-- Dark mode (Low Beam) -->
-            <svg class="beam-icon low-beam" data-target="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
-                <line x1="2" y1="8" x2="8" y2="5" />
-                <line x1="2" y1="12" x2="8" y2="9" />
-                <line x1="2" y1="16" x2="8" y2="13" />
-                <line x1="2" y1="20" x2="8" y2="17" />
-            </svg>
-
-            <!-- Fog mode (Fog Light) -->
-            <svg class="beam-icon fog-beam" data-target="medium" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
-                <line x1="0" y1="10" x2="8" y2="6" />
-                <line x1="0" y1="15" x2="8" y2="11" />
-                <line x1="0" y1="20" x2="8" y2="16" />
-                <path d="M5 4 L2 9 L6 14 L2 19 L5 23" />
-            </svg>
-
-            <!-- Light mode (High Beam) -->
-            <svg class="beam-icon high-beam" data-target="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
-                <line x1="2" y1="6" x2="8" y2="6" />
-                <line x1="2" y1="10" x2="8" y2="10" />
-                <line x1="2" y1="14" x2="8" y2="14" />
-                <line x1="2" y1="18" x2="8" y2="18" />
-            </svg>
-
-            <div class="stalk-thumb"></div>
-        </button>
+    <!-- BACKGROUND VISUALS PAUSED: restore this block and neural-background.js to re-enable.
+    <div class="mode-atmosphere" aria-hidden="true">
+        <div class="scene scene-day"></div>
+        <div class="scene scene-fog"></div>
+        <div class="scene scene-night"></div>
+        <canvas id="neural-background" aria-hidden="true"></canvas>
     </div>
-    
+    END PAUSED BACKGROUND VISUALS -->
+    <!-- Three-mode lighting selector -->
+    <div class="floating-theme-container">
+        <div id="theme-stalk" class="stalk-slider" data-state="day" role="group" aria-label="Display mode">
+            <span class="stalk-thumb" aria-hidden="true"></span>
+            <button type="button" class="beam-option" data-mode="day" aria-label="Day mode" title="Day">
+                <svg class="beam-icon high-beam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
+                    <line x1="2" y1="6" x2="8" y2="6" /><line x1="2" y1="10" x2="8" y2="10" />
+                    <line x1="2" y1="14" x2="8" y2="14" /><line x1="2" y1="18" x2="8" y2="18" />
+                </svg>
+            </button>
+            <button type="button" class="beam-option" data-mode="fog" aria-label="Fog and snow mode" title="Fog / snow">
+                <svg class="beam-icon fog-beam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
+                    <line x1="0" y1="10" x2="8" y2="6" /><line x1="0" y1="15" x2="8" y2="11" />
+                    <line x1="0" y1="20" x2="8" y2="16" /><path d="M5 4 L2 9 L6 14 L2 19 L5 23" />
+                </svg>
+            </button>
+            <button type="button" class="beam-option" data-mode="night" aria-label="Night mode" title="Night">
+                <svg class="beam-icon low-beam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M11 4v16c6 0 9-4 9-8s-3-8-9-8z" />
+                    <line x1="2" y1="8" x2="8" y2="5" /><line x1="2" y1="12" x2="8" y2="9" />
+                    <line x1="2" y1="16" x2="8" y2="13" /><line x1="2" y1="20" x2="8" y2="17" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <header>
         <div class="header-content">
             <h1>Priyansh Garg</h1>
@@ -72,10 +63,10 @@
             <div class="social-links-header">
                 <!-- <a href="#"><i class="fas fa-graduation-cap"></i>Google Scholar</a> -->
                 <!-- <a href="#"><i class="fab fa-twitter"></i>Twitter</a> -->
-                <a href="https://github.com/garg-priyansh"><i class="fab fa-github"></i></a>
-                <a href="mailto:garg0196@umn.edu"><i class="fas fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/priyanshgarg" target="_blank"><i class="fab fa-linkedin"></i> </a>
-                <a href="https://drive.google.com/file/d/1Z1D3wALtZOZe_f29Lv7FkOxoQwSWQOAa/view?usp=sharing" target="_blank" title=""><i class="fas fa-file-pdf"></i></a>
+                <a href="https://github.com/garg-priyansh" aria-label="GitHub" title="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="mailto:garg0196@umn.edu" aria-label="Email Priyansh" title="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/in/priyanshgarg" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                <a href="https://drive.google.com/file/d/1Z1D3wALtZOZe_f29Lv7FkOxoQwSWQOAa/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Curriculum vitae" title="CV"><i class="fas fa-file-pdf" aria-hidden="true"></i></a>
             </div>
         </div>
         <div class="header-image">
@@ -85,11 +76,8 @@
 
     <main>
         <section id="about">
-            <p>Hi! I am a PhD student in Mechanical Engineering at the University of Minnesota, Twin Cities. 
-                My research interests lie at the intersection of machine learning and physical systems, with a particular focus on computational modeling, optimization, and intelligent control. 
-                I am interested in applying these methods to robotics and emerging engineering technologies.
-            </p>
-            <blockquote class="quote">
+            <p>Hi! I am a PhD student in Mechanical Engineering at the University of Minnesota, Twin Cities. My research interests lie at the intersection of machine learning and physical systems, with a particular focus on computational modeling, optimization, and intelligent control. I am interested in applying these methods to robotics and emerging engineering technologies.</p>
+            <blockquote class="quote" id="rotating-quote">
                 <!-- "Of all intoxication, the intoxication of knowledge is the worst." -->
                 "When we are in ignorance, everything justified appears foolish and everything foolish appears justified"
             </blockquote>
@@ -100,6 +88,53 @@
                 <figcaption>— <cite>My teacher</cite></figcaption>
             </figure> -->
         </section>
+
+        <!-- WORKING DEMOS PRESERVED FOR FUTURE RESEARCH.
+             To restore: remove this comment wrapper and uncomment experiments.js below.
+        <section id="experiments" aria-labelledby="experiments-heading">
+            <h2 id="experiments-heading">A small experiment</h2>
+            <p class="lab-intro">Balance and excitability: two ways to explore how systems respond.</p>
+            <div class="experiment-lab">
+                <div class="lab-tabs" role="tablist" aria-label="Choose an experiment">
+                    <button id="tab-balance" class="lab-tab" type="button" role="tab" aria-selected="true" aria-controls="panel-balance" tabindex="0">Control <span>Balance</span></button>
+                    <button id="tab-neuron" class="lab-tab" type="button" role="tab" aria-selected="false" aria-controls="panel-neuron" tabindex="-1">Neuroscience <span>Spikes</span></button>
+                </div>
+                <div id="panel-balance" class="lab-panel" role="tabpanel" aria-labelledby="tab-balance">
+                    <div class="lab-panel-heading"><h3>Keeping the pendulum upright</h3><span class="lab-status" id="balance-status" role="status">Ready to nudge</span></div>
+                    <p class="lab-description">Drag the bob or give it a nudge. A controller applies torque to bring it back upright; switch feedback off to compare.</p>
+                    <svg id="pendulum-scene" class="lab-scene" viewBox="0 0 640 260" role="img" aria-label="An upright pendulum. Use the nudge buttons below, or drag its bob.">
+                        <defs><pattern id="lab-grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" class="lab-grid-dot" /></pattern></defs>
+                        <rect width="640" height="260" fill="url(#lab-grid)" />
+                        <line class="lab-guide" x1="320" y1="26" x2="320" y2="244" />
+                        <circle class="lab-target" cx="320" cy="52" r="15" />
+                        <text class="lab-label" x="343" y="44">upright target</text>
+                        <path id="pendulum-trail" class="lab-trail" d="" />
+                        <path class="lab-support" d="M300 160 L320 140 L340 160 Z" />
+                        <line id="pendulum-rod" class="lab-rod" x1="320" y1="140" x2="320" y2="52" />
+                        <circle class="lab-pivot" cx="320" cy="140" r="5" />
+                        <circle id="pendulum-bob" class="lab-bob" cx="320" cy="52" r="12" />
+                        <text class="lab-label" x="22" y="238">torque-actuated pendulum · idealized model</text>
+                    </svg>
+                    <div class="lab-readout"><span>Angle <output id="balance-angle">0.0°</output></span><span>Applied torque <output id="balance-torque">0.0</output></span></div>
+                    <div class="lab-trace-heading"><span>Angle over time</span><span>last 6 seconds</span></div>
+                    <svg class="lab-trace" viewBox="0 0 640 110" role="img" aria-label="Pendulum angle history, with upright at the center line."><line class="lab-guide" x1="0" y1="55" x2="640" y2="55" /><path id="balance-trace" class="lab-signal" d="M0 55H640" /></svg>
+                    <div class="lab-controls"><div class="lab-button-row"><button class="lab-button" id="nudge-left" type="button">← Nudge</button><button class="lab-button" id="nudge-right" type="button">Nudge →</button><button class="lab-button lab-quiet" id="balance-pause" type="button">Run</button><button class="lab-button lab-quiet" id="balance-reset" type="button">Reset</button></div><label class="lab-check"><input type="checkbox" id="feedback-enabled" checked> Feedback on</label></div>
+                    <label class="lab-range" for="feedback-gain"><span>Controller strength <output id="feedback-value">1.0×</output></span><input id="feedback-gain" type="range" min="0.6" max="1.6" value="1" step="0.1"></label>
+                </div>
+                <div id="panel-neuron" class="lab-panel" role="tabpanel" aria-labelledby="tab-neuron" hidden>
+                    <div class="lab-panel-heading"><h3>From input to spikes</h3><span class="lab-status" id="neuron-status" role="status">Ready to stimulate</span></div>
+                    <p class="lab-description">Increase a constant input and watch a model neuron integrate it. Crossing the threshold produces a spike, followed by a reset.</p>
+                    <div class="neuron-key"><span><i class="signal-key"></i> Membrane potential</span><span><i class="threshold-key"></i> Firing threshold</span></div>
+                    <svg class="neuron-scene" viewBox="0 0 640 240" role="img" aria-label="Model membrane potential over time. The dashed line marks the spike threshold."><line class="lab-guide" x1="0" y1="52" x2="640" y2="52" /><text class="lab-label" x="10" y="39">threshold = 1</text><line class="lab-baseline" x1="0" y1="212" x2="640" y2="212" /><path id="neuron-trace" class="lab-signal" d="M0 212H640" /><text class="lab-label" x="10" y="234">normalized potential · last 300 ms · playback slowed</text></svg>
+                    <div class="lab-readout"><span>Potential <output id="neuron-potential">0.00</output></span><span>Steady firing rate <output id="neuron-rate">33 spikes/s</output></span></div>
+                    <label class="lab-range" for="neuron-drive"><span>Input strength <output id="neuron-drive-value">1.35× threshold</output></span><input id="neuron-drive" type="range" min="0.4" max="2" value="1.35" step="0.05"></label>
+                    <div class="lab-button-row"><button class="lab-button" id="neuron-run" type="button">Stimulate</button><button class="lab-button lab-quiet" id="neuron-reset" type="button">Reset</button></div>
+                    <p class="lab-footnote">An illustrative leaky integrate-and-fire model, with a 20 ms time constant and 3 ms refractory period. <a href="https://neuronaldynamics.epfl.ch/online/Ch1.S3.html" target="_blank" rel="noopener noreferrer">About the model ↗</a></p>
+                </div>
+            </div>
+            <noscript><p>Enable JavaScript to explore these experiments.</p></noscript>
+        </section>
+        END PRESERVED DEMOS -->
 
         <!-- Education Section -->
         <section id="education">
@@ -135,7 +170,7 @@
             <!-- <p>My research spans <strong>computational neuroscience</strong>, <strong>distributional reinforcement learning</strong>, and <strong>computer vision</strong>.</p> -->
             <ul>
                 <li>
-                    <strong>Bachelor's Thesis Researcher</strong> &nbsp;|&nbsp; <em>Harvard University</em> (2023–2024)<br>
+                    <strong>Bachelor's Thesis Researcher</strong> &nbsp;|&nbsp; <em class="organization">Harvard University</em> (2023–2024)<br>
                     <i>Advisors: Dr. Sara Matias, Dr. Jay Hennig | PI: Dr. Naoshige Uchida</i>
                     <ul>
                         <li>Enhanced classical TD learning in an RNN model to dual learning rates for optimistic and pessimistic neurons by modifying existing RNN code for episodic trials with multiple cues.</li>
@@ -144,7 +179,7 @@
                 </li>
                 <br>
                 <li>
-                    <strong>Research Intern</strong> &nbsp;|&nbsp; <em>IIT Delhi</em> (Spring 2023)<br>
+                    <strong>Research Intern</strong> &nbsp;|&nbsp; <em class="organization">IIT Delhi</em> (Spring 2023)<br>
                     <i>Advisor: <a href="https://csndl-iitd.github.io/cndl-website/" target="_blank">Dr. Saurabh Gandhi</a></i>
                     <ul>
                         <li>Analysed 128 Hz EEG neural datasets across three cortices in healthy and Alzheimer's cohorts.</li>
@@ -153,7 +188,7 @@
                 </li>
                 <br>
                 <li>
-                    <strong>Research Intern</strong> &nbsp;|&nbsp; <em>CEERI Pilani</em> (Spring 2023)<br>
+                    <strong>Research Intern</strong> &nbsp;|&nbsp; <em class="organization">CEERI Pilani</em> (Spring 2023)<br>
                     <i>Advisor: <a href="https://www.ceeri.res.in/profiles/dhiraj-sangwan/" target="_blank">Dr. Dhiraj Sangwan</a></i>
                     <ul>
                         <li>Created a computer vision classification model to detect fruit defects from seed X-ray scans.</li>
@@ -249,7 +284,7 @@
             <h2>Professional Experience</h2>
             <ul>
                 <li>
-                    <strong>Data Scientist</strong> &nbsp;|&nbsp; <em>Hero FinCorp</em>, Haryana, India (2024–2026)
+                    <strong>Data Scientist</strong> &nbsp;|&nbsp; <em class="organization">Hero FinCorp</em>, Haryana, India (2024–2026)
                     <ul>
                         <li>Developed an XGBoost model to predict customer delinquency risk (AUC 0.89).</li>
                         <li>Engineered an event-driven pipeline via self-triggered Databricks jobs (Python/S3) to automate recurring ad-hoc requests, reducing manual effort by ~80%.</li>
@@ -268,6 +303,18 @@
 
     <footer>
         <p>Last updated: <span id="last-updated"></span>. Design and source code from <a href="https://cs.stanford.edu/~yuhuiz/", target="_blank">Yuhui Zhang's website</a>. </p>
+        <!-- BACKGROUND CONTROLS PAUSED
+        <details id="background-notes" class="background-notes" hidden>
+            <summary>Behind the background</summary>
+            <div class="background-notes-body">
+                <p><strong id="background-title">Day · Finding a path</strong></p>
+                <p id="background-story">The gold points follow paths around obstacles, an illustration of motion planning.</p>
+                <p id="background-hint" class="background-hint">Move your pointer through the margins to influence the route.</p>
+                <p class="background-disclaimer">Illustrative, synthetic animations inspired by my research interests.</p>
+            </div>
+        </details>
+        <div class="background-motion"><button id="background-motion" type="button" aria-pressed="true" hidden>Pause background</button></div>
+        END PAUSED BACKGROUND CONTROLS -->
     </footer>
 
     <div id="imageModal" class="modal">
@@ -275,6 +322,9 @@
         <img class="modal-content" id="modalImage">
     </div>
     <script src="scripts.js"></script>
+    <script src="quotes.js"></script>
+    <!-- <script src="experiments.js"></script> -->
+    <!-- <script src="neural-background.js"></script> -->
     <script>
         fetch('https://api.github.com/repos/garg-priyansh/garg-priyansh.github.io/commits/main')
         .then(response => response.json())

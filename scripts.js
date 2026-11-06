@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Load publications from JSON file
 function loadPublications() {
+  if (!document.getElementById('publications-container')) return;
   fetch('publications.json')
     .then(response => {
       if (!response.ok) {
@@ -205,51 +206,32 @@ window.onclick = function(event) {
 document.addEventListener("DOMContentLoaded", () => {
     const themeStalk = document.getElementById("theme-stalk");
     if (!themeStalk) return;
+    const options = Array.from(themeStalk.querySelectorAll(".beam-option"));
+    const validModes = ["day", "fog", "night"];
+    let sheenTimeout;
 
-    const icons = themeStalk.querySelectorAll('.beam-icon');
-    const themeStates = ["dark", "medium", "light"];
+    function applyTheme(mode, animate = false) {
+        if (!validModes.includes(mode)) mode = "day";
+        document.body.classList.remove("theme-day", "theme-fog", "theme-night");
+        document.body.classList.add(`theme-${mode}`);
+        themeStalk.dataset.state = mode;
+        document.dispatchEvent(new CustomEvent("themechange", { detail: { mode } }));
+        options.forEach(option => option.setAttribute("aria-pressed", String(option.dataset.mode === mode)));
+        try { localStorage.setItem("themeState", mode); } catch (error) { /* Storage is optional. */ }
 
-    function applyTheme(state) {
-        // Update body classes
-        document.body.classList.remove("dark-theme", "medium-mode-glow", "dark-mode-glow");
-        if (state === "dark") {
-            document.body.classList.add("dark-theme", "dark-mode-glow");
-        } else if (state === "medium") {
-            document.body.classList.add("dark-theme", "medium-mode-glow");
-        }
-        // (light mode = no extra classes)
-
-        // Update active icon
-        icons.forEach(icon => {
-            const target = icon.getAttribute('data-target');
-            icon.classList.toggle('active', target === state);
-        });
-
-        // Update container state
-        themeStalk.setAttribute('data-state', state);
-        localStorage.setItem("themeState", state);
-
-        // Flash effect
-        const flashDiv = document.getElementById("headlight-flash");
-        if (flashDiv) {
-            flashDiv.classList.remove("flash-active");
-            void flashDiv.offsetWidth;
-            flashDiv.classList.add("flash-active");
+        if (animate) {
+            window.clearTimeout(sheenTimeout);
+            themeStalk.classList.remove("is-transitioning");
+            void themeStalk.offsetWidth;
+            themeStalk.classList.add("is-transitioning");
+            sheenTimeout = window.setTimeout(() => themeStalk.classList.remove("is-transitioning"), 700);
         }
     }
 
-    // Load saved preference
-    const savedState = localStorage.getItem("themeState") || "light";
-    applyTheme(savedState);
-
-    // Click on any icon to select that theme
-    icons.forEach(icon => {
-        icon.addEventListener('click', (e) => {
-            e.stopPropagation(); // prevent accidental clicks on the button itself
-            const targetState = icon.getAttribute('data-target');
-            if (targetState && themeStates.includes(targetState)) {
-                applyTheme(targetState);
-            }
-        });
-    });
+    let savedMode = "day";
+    try { savedMode = localStorage.getItem("themeState") || "day"; } catch (error) { /* Use default. */ }
+    const legacyModes = { light: "day", medium: "fog", dark: "night" };
+    applyTheme(legacyModes[savedMode] || savedMode);
+    options.forEach(option => option.addEventListener("click", () => applyTheme(option.dataset.mode, true)));
 });
+
